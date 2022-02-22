@@ -57,7 +57,7 @@ configtxgen -profile TwoOrgsOrdererGenesis -channelID system-channel -outputBloc
 # Bring up the peer and orderer nodes using docker compose.
 infoln "------------- Bring up the peer and orderer nodes using docker compose"
 
-COMPOSE_FILES=docker/docker-compose-basic-net.yaml
+COMPOSE_FILES=docker/docker-compose-net.yaml
 # IMAGE_TAG=latest docker-compose -f $COMPOSE_FILES up -d 2>&1
 COMPOSE_FILES_COUCH=docker/docker-compose-couch.yaml
 IMAGE_TAG=latest docker-compose -f $COMPOSE_FILES -f $COMPOSE_FILES_COUCH up -d 2>&1
