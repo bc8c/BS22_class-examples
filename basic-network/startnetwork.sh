@@ -29,24 +29,51 @@ if [ -d "organizations/peerOrganizations" ]; then
 fi
 
 
-# Generate certificates using Fabric CA
-# Excute CA containers
-infoln "------------- Generating certificates using Fabric CA"
-COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
-IMAGE_TAG=latest docker-compose -f $COMPOSE_FILE_CA up -d 2>&1
-sleep 2
+# # Generate certificates using Fabric CA
+# # Excute CA containers
+# infoln "------------- Generating certificates using Fabric CA"
+# COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
+# IMAGE_TAG=latest docker-compose -f $COMPOSE_FILE_CA up -d 2>&1
+# sleep 2
 
-# Create crypto material using Fabric CA
-. scripts/registerEnroll.sh
+# # Create crypto material using Fabric CA
+# . scripts/registerEnroll.sh
 
-subinfoln "Create Org1 crypto material"
-createOrg1
+# subinfoln "Create Org1 crypto material"
+# createOrg1
 
-subinfoln "Create Org2 crypto material"
-createOrg2
+# subinfoln "Create Org2 crypto material"
+# createOrg2
 
-subinfoln "Create Orderer crypto material"
-createOrderer
+# subinfoln "Create Orderer crypto material"
+# createOrderer
+
+
+# Create crypto material using cryptogen
+
+infoln "Generating certificates using cryptogen tool"
+
+subinfoln "Creating Org1 Identities"
+
+set -x
+cryptogen generate --config=./config/crypto-config-org1.yaml --output="organizations"
+res=$?
+{ set +x; } 2>/dev/null
+
+subinfoln "Creating Org2 Identities"
+
+set -x
+cryptogen generate --config=./config/crypto-config-org2.yaml --output="organizations"
+res=$?
+{ set +x; } 2>/dev/null
+
+subinfoln "Creating Orderer Org Identities"
+
+set -x
+cryptogen generate --config=./config/crypto-config-orderer.yaml --output="organizations"
+res=$?
+{ set +x; } 2>/dev/null
+
 
 # Generate orderer system channel genesis block.
 infoln "------------- Generating Orderer Genesis block"
