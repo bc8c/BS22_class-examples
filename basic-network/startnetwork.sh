@@ -28,27 +28,6 @@ if [ -d "organizations/peerOrganizations" ]; then
     rm -Rf organizations/peerOrganizations && rm -Rf organizations/ordererOrganizations
 fi
 
-
-# # Generate certificates using Fabric CA
-# # Excute CA containers
-# infoln "------------- Generating certificates using Fabric CA"
-# COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
-# IMAGE_TAG=latest docker-compose -f $COMPOSE_FILE_CA up -d 2>&1
-# sleep 2
-
-# # Create crypto material using Fabric CA
-# . scripts/registerEnroll.sh
-
-# subinfoln "Create Org1 crypto material"
-# createOrg1
-
-# subinfoln "Create Org2 crypto material"
-# createOrg2
-
-# subinfoln "Create Orderer crypto material"
-# createOrderer
-
-
 # Create crypto material using cryptogen
 
 infoln "Generating certificates using cryptogen tool"
