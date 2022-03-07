@@ -359,3 +359,13 @@ Profiles:
                 - *Org3
             Capabilities:
                 <<: *ApplicationCapabilities
+    additionalChannel:
+        Consortium: SampleConsortium
+        <<: *ChannelDefaults
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Org1
+                - *Org3
+            Capabilities:
+                <<: *ApplicationCapabilities
