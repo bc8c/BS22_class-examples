@@ -1,10 +1,11 @@
 #!/bin/bash
 
-COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
-COMPOSE_FILES=docker/docker-compose-net.yaml
+# COMPOSE_FILE_CA=docker/docker-compose-ca.yaml
+COMPOSE_FILES_PEER=docker/docker-compose-peer.yaml
+COMPOSE_FILES_ORDERER=docker/docker-compose-orderer.yaml
 COMPOSE_FILES_COUCH=docker/docker-compose-couch.yaml
 
-docker-compose -f $COMPOSE_FILE_CA -f $COMPOSE_FILES -f $COMPOSE_FILES_COUCH down --volumes --remove-orphans
+docker-compose -f $COMPOSE_FILES_PEER -f $COMPOSE_FILES_ORDERER -f $COMPOSE_FILES_COUCH down --volumes --remove-orphans
 
 
 # cleen up the MSP directory
