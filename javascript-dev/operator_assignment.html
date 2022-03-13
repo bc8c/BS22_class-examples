@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>대입 연산</title>
+  </head>
+  <body>
+    <h3>대입 연산</h3>
+    <hr />
+    <script>
+      var x = 3,
+        y = 3,
+        z = 3;
+      document.write("x=" + x + ", y=" + y);
+      document.write(", z=" + z + "<br><br>");
+
+      x += 3; // x=x+3 -> x=6
+      y *= 3; // y=y*3 -> y=9
+      z %= 2; // z=z%2 -> z=1
+
+      document.write("x += 3; 실행 후, x=" + x + "<br>");
+      document.write("y *= 3; 실행 후, y=" + y + "<br>");
+      document.write("z %= 2; 실행 후, z=" + z);
+    </script>
+  </body>
+</html>

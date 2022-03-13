@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>break 문</title>
+  </head>
+  <body>
+    <h3>1에서 얼마까지 더해야 3000을 넘는가?</h3>
+    <hr />
+    <script>
+      var i = 0,
+        sum = 0;
+      while (true) {
+        // 무한 반복
+        sum += i;
+        if (sum > 3000) break; // 합이 3000보다 큼. 반복문 벗어남
+        i++;
+      }
+      document.write(i + "까지 더하면 3000을 넘음 : " + sum);
+    </script>
+  </body>
+</html>
