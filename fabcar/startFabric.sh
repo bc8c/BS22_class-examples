@@ -1,29 +1,6 @@
 
 set -e
 
-# # don't rewrite paths for Windows Git Bash users
-# export MSYS_NO_PATHCONV=1
-# starttime=$(date +%s)
-# CC_SRC_LANGUAGE=${1:-"go"}
-# CC_SRC_LANGUAGE=`echo "$CC_SRC_LANGUAGE" | tr [:upper:] [:lower:]`
-
-# if [ "$CC_SRC_LANGUAGE" = "go" -o "$CC_SRC_LANGUAGE" = "golang" ] ; then
-# 	CC_SRC_PATH="../chaincode/fabcar/go/"
-# elif [ "$CC_SRC_LANGUAGE" = "javascript" ]; then
-# 	CC_SRC_PATH="../chaincode/fabcar/javascript/"
-# elif [ "$CC_SRC_LANGUAGE" = "java" ]; then
-# 	CC_SRC_PATH="../chaincode/fabcar/java"
-# elif [ "$CC_SRC_LANGUAGE" = "typescript" ]; then
-# 	CC_SRC_PATH="../chaincode/fabcar/typescript/"
-# else
-# 	echo The chaincode language ${CC_SRC_LANGUAGE} is not supported by this script
-# 	echo Supported chaincode languages are: go, java, javascript, and typescript
-# 	exit 1
-# fi
-
-
-
-
 # clean out any old identites in the wallets
 rm -rf javascript/wallet/*
 
@@ -35,3 +12,22 @@ sleep 5
 sleep 5
 popd
 ./deployCC.sh
+
+
+set -x
+### Only for static (application-javascript-static example)  ###
+# Where am I?
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Copy the MSP for ORG1.
+mkdir -p ${DIR}/msp/org1.example.com/users/signcerts
+mkdir -p ${DIR}/msp/org1.example.com/users/keystore
+cp "${DIR}/../basic-network-ca/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/"* "${DIR}/msp/org1.example.com/users/signcerts/User1@org1.example.com-cert.pem"
+cp "${DIR}/../basic-network-ca/organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/"* "${DIR}/msp/org1.example.com/users/keystore/priv_sk"
+
+# Copy the MSP for ORG2.
+mkdir -p ${DIR}/msp/org2.example.com/users/signcerts
+mkdir -p ${DIR}/msp/org2.example.com/users/keystore
+cp "${DIR}/../basic-network-ca/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/"* "${DIR}/msp/org2.example.com/users/signcerts/User1@org2.example.com-cert.pem"
+cp "${DIR}/../basic-network-ca/organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/keystore/"* "${DIR}/msp/org2.example.com/users//keystore/priv_sk"
+{ set +x; } 2>/dev/null
