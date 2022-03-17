@@ -126,7 +126,6 @@ cat log.txt
 sleep 3
 
 ## TEST2 : Query the chaincode
-
 infoln "TEST2 : Query the chaincode"
 set -x
 peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"Args":["QueryAllCars"]}' >&log.txt
