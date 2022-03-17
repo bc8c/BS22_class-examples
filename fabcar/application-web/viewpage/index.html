@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">      
+      <h1>Welcome! Fabcar!</h1>
+      <p>Select A Nextpage</p>      
+    </div>
+
+    <div class="c_container">
+        <button id="btn_queryAllCars">Query All Cars</button>
+        <br>
+        <button id="btn_queryCar">Query a Cars</button>
+        <br>
+        <button id="btn_createcar">Create a car</button>
+        <br>
+        <button id="btn_changeowner">Change owner</button>
+        <br>
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#btn_queryAllCars").click(function(){    
+        location.href = './page/queryAllCars';
+    })
+    $("#btn_queryCar").click(function(){    
+        location.href = './page/queryCar';
+    })
+    $("#btn_createcar").click(function(){    
+        location.href = './page/createCar';
+    })
+    $("#btn_changeowner").click(function(){    
+        location.href = './page/changeCarOwner';
+    })
+</script>

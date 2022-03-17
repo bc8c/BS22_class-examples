@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">
+      <h1>queryAllCars Page</h1>      
+    </div>
+
+    <div class="c_container">
+        <button id="btn_queryAllCars">Query All Cars</button>
+
+        <div id="resultwindow">
+            <h2>Fabcar Query Result</h2>
+            <div id="queryresult">
+                <p>whatwhat</p>
+            </div>
+        </div>
+
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#resultwindow").hide()
+    $("#btn_queryAllCars").click(function(){        
+        $.get("/api/queryAllCars", function(data, status){            
+            $("#resultwindow").show()
+            $("#queryresult").empty()
+            for(var i=0; i < data.length; i++){
+                $("#queryresult").append(JSON.stringify(data[i]))
+                $("#queryresult").append("<br>")
+            } 
+        })
+    })
+</script>

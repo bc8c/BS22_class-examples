@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">      
+      <h1>createCar Page</h1>      
+    </div>
+    
+    <div class="c_container">        
+        Car.Number <input type="text" id=inp_carno> <br>
+        Car.Maker <input type="text" id=inp_carmake> <br>
+        Car.Model <input type="text" id=inp_carmodel> <br>
+        Car.Colour <input type="text" id=inp_carcol> <br>        
+        Car.Owner <input type="text" id=inp_carowner> <br>
+        <button id="btn_createCar">Create a Car</button>
+        
+        <div id="resultwindow">
+            <h2>Fabcar Query Result</h2>
+            <div id="queryresult">
+                <p>whatwhat</p>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#resultwindow").hide()
+    $("#btn_createCar").click(function(){
+        const _carno = $("#inp_carno").val()
+        const _carmake = $("#inp_carmake").val()
+        const _carmodel = $("#inp_carmodel").val()
+        const _carcol = $("#inp_carcol").val()
+        const _carowner = $("#inp_carowner").val()
+        $.post("/api/createCar",{carno: _carno, carmake: _carmake, carmodel: _carmodel, carcol: _carcol, carowner: _carowner } ,function(data, status){            
+            $("#resultwindow").show()
+            $("#queryresult").empty()            
+            $("#queryresult").append(status)
+            $("#queryresult").append("<br>")
+        })
+    })
+</script>

@@ -1,0 +1,11 @@
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+node_modules/
+
+
+wallet
+!wallet/.gitkeep
