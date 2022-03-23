@@ -21,59 +21,34 @@ type Rate struct{
 	ProjectTitle string  `json:"projecttitle"`
 	Score float64 `json:"score"`
 }
-
-// func (s *SmartContract) Init(APIstub shim.ChaincodeStubInterface) sc.Response {
-// 	return shim.Success(nil)
-// }
-
-// func (s *SmartContract) Invoke(APIstub shim.ChaincodeStubInterface) sc.Response {
-
-// 	function, args := APIstub.GetFunctionAndParameters()
-
-// 	if function == "addUser" {
-// 		return s.addUser(APIstub, args)
-// 	} else if function == "addRating" {
-// 		return s.addRating(APIstub, args)
-// 	} else if function == "readRating" {
-// 		return s.readRating(APIstub, args)
-// 	} 
-// 	return shim.Error("Invalid Smart Contract function name.")
-// }
  
-func (s *SmartContract) addUser(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+func (s *SmartContract) AddUser(ctx contractapi.TransactionContextInterface, username string) error {
 
-	if len(args) != 1 {
-		return shim.Error("fail!")
-	}
-	var user = UserRating{User: args[0], Average: 0}
-	userAsBytes, _ := json.Marshal(user)
-	APIstub.PutState(args[0], userAsBytes)
+	var user = UserRating{User: username, Average: 0}
+	userAsBytes, _ := json.Marshal(user)	
 
-	return shim.Success(nil)
+	return ctx.GetStub().PutState(username, userAsBytes)
 }
 
-func (s *SmartContract) addRating(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	if len(args) != 3 {
-		return shim.Error("Incorrect number of arguments. Expecting 3")
-	}
+func (s *SmartContract) AddRating(ctx contractapi.TransactionContextInterface, username string, prjTitle string, prjscore string) error {
+	
 	// getState User 
-	userAsBytes, err := APIstub.GetState(args[0])
+	userAsBytes, err := ctx.GetStub().GetState(username)	
+
 	if err != nil{
-		jsonResp := "\"Error\":\"Failed to get state for "+ args[0]+"\"}"
-		return shim.Error(jsonResp)
+		return err
 	} else if userAsBytes == nil{ // no State! error
-		jsonResp := "\"Error\":\"User does not exist: "+ args[0]+"\"}"
-		return shim.Error(jsonResp)
+		return fmt.Errorf("\"Error\":\"User does not exist: "+ username+"\"")
 	}
 	// state ok
 	user := UserRating{}
 	err = json.Unmarshal(userAsBytes, &user)
 	if err != nil {
-		return shim.Error(err.Error())
+		return err
 	}
 	// create rate structure
-	newRate, _ := strconv.ParseFloat(args[2],64) 
-	var Rate = Rate{ProjectTitle: args[1], Score: newRate}
+	newRate, _ := strconv.ParseFloat(prjscore,64) 
+	var Rate = Rate{ProjectTitle: prjTitle, Score: newRate}
 
 	rateCount := float64(len(user.Rates))
 
@@ -82,27 +57,45 @@ func (s *SmartContract) addRating(APIstub shim.ChaincodeStubInterface, args []st
 	user.Average = (rateCount*user.Average+newRate)/(rateCount+1)
 	// update to User World state
 	userAsBytes, err = json.Marshal(user);
+	if err != nil {
+		return fmt.Errorf("failed to Marshaling: %v", err)
+	}	
 
-	APIstub.PutState(args[0], userAsBytes)
-
-	return shim.Success([]byte("rating is updated"))
+	err = ctx.GetStub().PutState(username, userAsBytes)
+	if err != nil {
+		return fmt.Errorf("failed to AddRating: %v", err)
+	}	
+	return nil
 }
 
-func (s *SmartContract) readRating(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+func (s *SmartContract) ReadRating(ctx contractapi.TransactionContextInterface, username string) (*UserRating, error) {
 
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments. Expecting 1")
+	UserAsBytes, err := ctx.GetStub().GetState(username)
+
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
 	}
 
-	UserAsBytes, _ := APIstub.GetState(args[0])
-	return shim.Success(UserAsBytes)
+	if UserAsBytes == nil {
+		return nil, fmt.Errorf("%s does not exist", username)
+	}
+
+	user := new(UserRating)
+	_ = json.Unmarshal(UserAsBytes, &user)
+	
+	return user, nil	
 }
 
 func main() {
 
-	// Create a new Smart Contract
-	err := shim.Start(new(SmartContract))
+	chaincode, err := contractapi.NewChaincode(new(SmartContract))
+
 	if err != nil {
-		fmt.Printf("Error creating new Smart Contract: %s", err)
+		fmt.Printf("Error create teamate chaincode: %s", err.Error())
+		return
+	}
+
+	if err := chaincode.Start(); err != nil {
+		fmt.Printf("Error starting teamate chaincode: %s", err.Error())
 	}
 }

@@ -162,7 +162,7 @@ jq '.data.data[0].payload.data.config' config_block.json > config.json
 set -x
 infoln "Modify the configuration to append the anchor peer"
 Modify the configuration to append the anchor peer 
-jq '.channel_group.groups.Application.groups.Org3MSP.values += {"AnchorPeers":{"mod_policy": "Admins","value":{"anchor_peers": [{"host": "peer0.org3.example.com","port": 11051}]},"version": "0"}}' config.json > modified_config.json
+jq '.channel_group.groups.Application.groups.Org3MSP.values += {"AnchorPeers":{"mod_policy": "Admins","value":{"anchor_peers":[{"host": "peer0.org3.example.com","port": 11051}]},"version": "0"}}' config.json > modified_config.json
 { set +x; } 2>/dev/null
 
 
