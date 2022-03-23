@@ -47,9 +47,9 @@ async function main() {
   const provider = wallet.getProviderRegistry().getProvider(adminIdentity.type);
   const adminUser = await provider.getUserContext(adminIdentity, "admin");
 
-  const secret = await ca.register({ affiliation: "org1.department1", enrollmentID: "appUser2", role: "client" }, adminUser);
+  const secret = await ca.register({ affiliation: "org1.department1", enrollmentID: "appUser", role: "client" }, adminUser);
 
-  const enrollmentuser = await ca.enroll({ enrollmentID: "appUser2", enrollmentSecret: secret });
+  const enrollmentuser = await ca.enroll({ enrollmentID: "appUser", enrollmentSecret: secret });
 
   const x509Identityuser = {
     credentials: {
@@ -60,7 +60,7 @@ async function main() {
     type: "X.509",
   };
 
-  await wallet.put("appUser2", x509Identityuser);
+  await wallet.put("appUser", x509Identityuser);
 
   // // 4. 지갑에 신원정보 저장하기
   // const identity = { credentials: { certificate, privateKey }, mspId: "Org1MSP", type: "X.509" };

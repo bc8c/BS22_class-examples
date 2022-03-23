@@ -81,7 +81,8 @@ export CORE_PEER_MSPCONFIGPATH=${NET_DIR_PATH}/organizations/peerOrganizations/o
 export CORE_PEER_ADDRESS=localhost:7051
 
 set -x
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')" --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence 1 >&log.txt
+# endorsment policy option : --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')"
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence 1 >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 
@@ -98,7 +99,8 @@ export CORE_PEER_MSPCONFIGPATH=${NET_DIR_PATH}/organizations/peerOrganizations/o
 export CORE_PEER_ADDRESS=localhost:9051
 
 set -x
-peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')" --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence 1 >&log.txt
+# endorsment policy option : --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')"
+peer lifecycle chaincode approveformyorg -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} --version ${CC_VERSION} --package-id ${PACKAGE_ID} --sequence 1 >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 
@@ -110,7 +112,8 @@ infoln "commit the chaincode definition"
 PEER_CONN_PARMS="--peerAddresses localhost:7051 --tlsRootCertFiles ${NET_DIR_PATH}/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses localhost:9051 --tlsRootCertFiles ${NET_DIR_PATH}/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt"
 
 set -x
-peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')" --name ${CC_NAME} $PEER_CONN_PARMS --version ${CC_VERSION} --sequence 1 >&log.txt
+# endorsment policy option : --signature-policy "OR('Org1MSP.member', 'Org2MSP.member')"
+peer lifecycle chaincode commit -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA --channelID $CHANNEL_NAME --name ${CC_NAME} $PEER_CONN_PARMS --version ${CC_VERSION} --sequence 1 >&log.txt
 { set +x; } 2>/dev/null
 cat log.txt
 
