@@ -68,22 +68,22 @@ func (s *SmartContract) AddRating(ctx contractapi.TransactionContextInterface, u
 	return nil
 }
 
-func (s *SmartContract) ReadRating(ctx contractapi.TransactionContextInterface, username string) (*UserRating, error) {
+func (s *SmartContract) ReadRating(ctx contractapi.TransactionContextInterface, username string) (string, error) {
 
 	UserAsBytes, err := ctx.GetStub().GetState(username)
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to read from world state. %s", err.Error())
+		return "", fmt.Errorf("Failed to read from world state. %s", err.Error())
 	}
 
 	if UserAsBytes == nil {
-		return nil, fmt.Errorf("%s does not exist", username)
+		return "", fmt.Errorf("%s does not exist", username)
 	}
 
-	user := new(UserRating)
-	_ = json.Unmarshal(UserAsBytes, &user)
+	// user := new(UserRating)
+	// _ = json.Unmarshal(UserAsBytes, &user)
 	
-	return user, nil	
+	return string(UserAsBytes[:]), nil	
 }
 
 func main() {
