@@ -6,9 +6,6 @@
 
 "use strict";
 
-const adminUserId = "admin";
-const adminUserPasswd = "adminpw";
-
 /**
  *
  * @param {*} FabricCAServices
@@ -24,7 +21,7 @@ exports.buildCAClient = (FabricCAServices, ccp, caHostName) => {
   return caClient;
 };
 
-exports.enrollAdmin = async (caClient, wallet, orgMspId) => {
+exports.enrollAdmin = async (caClient, wallet, orgMspId, adminUserId, adminUserPasswd) => {
   try {
     // Check to see if we've already enrolled the admin user.
     const identity = await wallet.get(adminUserId);
@@ -50,7 +47,7 @@ exports.enrollAdmin = async (caClient, wallet, orgMspId) => {
   }
 };
 
-exports.registerAndEnrollUser = async (caClient, wallet, orgMspId, userId, affiliation) => {
+exports.registerAndEnrollUser = async (caClient, wallet, orgMspId, adminUserId, userId, affiliation) => {
   try {
     // Check to see if we've already enrolled the user
     const userIdentity = await wallet.get(userId);

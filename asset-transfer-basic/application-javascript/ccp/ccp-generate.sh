@@ -29,7 +29,7 @@ function yaml_ccp {
 # Where am I?
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-NET_DIR_PATH="${DIR}/../../../basic-network-ca"
+NET_DIR_PATH="${DIR}/../../network"
 
 ORG=1
 P0PORT=7051
