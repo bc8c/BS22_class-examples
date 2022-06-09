@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Create a JSON string from a JavaScript object.</h2>
+    <p id="demo1"></p>
+    <p id="demo2"></p>
+
+    <script>
+      const obj = { name: "John", age: 30, city: "New York" };
+      const myJSON1 = JSON.stringify(obj);
+      document.getElementById("demo1").innerHTML = myJSON1;
+
+      const arr = ["John", "Peter", "Sally", "Jane"];
+      const myJSON2 = JSON.stringify(arr);
+      document.getElementById("demo2").innerHTML = myJSON2;
+    </script>
+  </body>
+</html>
