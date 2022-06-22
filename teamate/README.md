@@ -15,7 +15,7 @@ application/ccp 경로에서 (다음 쉘스크립트 실행):
 
 - ./ccp-generate.sh
 
-## 3. Network 실행
+## 3. 인증서 가져오기 및 지갑 생성
 
 application 경로에서 (다음 쉘스크립트 순차 실행):
 
