@@ -2,7 +2,7 @@
 
 ## 1. Network 실행
 
-network 경로에서 (다음 쉘스크립트 순차 실행):
+다음 쉘스크립트 실행:
 
 - ./startFabric.sh (startnetwork.sh, createchannel.sh, setAnchorPeerUpdate.sh, deployCC.sh 쉘스크립트가 순차적으로 실행됨)
 
