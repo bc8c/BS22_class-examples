@@ -1,0 +1,26 @@
+{
+  "name": "bs22_asset-transfer-basic_223",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "fabric-ca-client": "^2.2.4",
+    "fabric-network": "^2.2.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bc8c/BS22_asset-transfer-basic_223.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bc8c/BS22_asset-transfer-basic_223/issues"
+  },
+  "homepage": "https://github.com/bc8c/BS22_asset-transfer-basic_223#readme"
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- jquery 라이브러리 추가 -->
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+    <title>- Asset Transfer Application Prototype -</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <br />
+      <h1>소유주변경페이지</h1>
+      <p>소유주변경에 필요한 정보를 입력하시오</p>
+      <br />
+
+      <label class="form-label"> 인증서이름 </label><br />
+      <input type="text" id="cert" class="form-control" />
+      <br />
+
+      <label class="form-label"> 자산이름 </label><br />
+      <input type="text" id="id" class="form-control" />
+      <br />
+
+      <label class="form-label"> 변경소유주 </label><br />
+      <input type="text" id="owner" class="form-control" />
+      <br />
+
+      <br /><br />
+      <button class="btn btn-danger" id="btn-transfer">소유주변경</button>
+    </div>
+    <!-- 결과 출력 영역 -->
+    <div class="container" id="result"></div>
+  </body>
+  <script>
+    $("#btn-transfer").click(() => {
+      const cert = $("#cert").val();
+      const id = $("#id").val();
+      const owner = $("#owner").val();
+      console.log(cert, id, owner);
+
+      $.post("/transfer", { cert, id, owner }, (data) => {
+        $("#result").empty();
+        const res = JSON.stringify(data);
+        $("#result").append(res);
+      });
+    });
+  </script>
+</html>
